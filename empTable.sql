@@ -16,7 +16,7 @@ This may be modeled after the "product" table defined in the SQL script of the r
 
 -- v.0001 has not yet been checked in the editor; this is based off of the registerddls and off of w3Schools SQL tutorial.
 -- When I am out of class and have time, it will be checked over for errors, tested and marked complete, probably in that order.
--- [test notes: look into adding default to isActive and empRole, figure out how to associate manager w/empID, make isActive/empRole unique]
+-- [test notes: look into adding default to isActive and empRole, figure out how to associate manager w/empID, make isActive/empRole notnull]
 -- 2/24/17 VLH
 
 CREATE TABLE Employees
