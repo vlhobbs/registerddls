@@ -1,5 +1,3 @@
-
-
 /* Define the SQL necessary to create an employee table. The table to maintain at least the following information...
 
 1.) Record ID (This is the primary key of the table)
@@ -14,23 +12,34 @@
 
 This may be modeled after the "product" table defined in the SQL script of the registerddls project. Of course, the "employee" table will look different. */
 
--- v.0001 has not yet been checked in the editor; this is based off of the registerddls and off of w3Schools SQL tutorial.
--- When I am out of class and have time, it will be checked over for errors, tested and marked complete, probably in that order.
--- [test notes: look into adding default to isActive and empRole, figure out how to associate manager w/empID, make isActive/empRole notnull]
--- 2/24/17 VLH
+-- This has been checked in MySQL on Turing. When Heroku comes back up, it can be tested. 
+-- You can use the query at the end and replace the last with new information to test it out.
+-- The only issue here is finding a way to reference the manager column from the empID/recordID of the listed manager. 
+-- I feel like there must be a way to do this with a lookup....
+-- Definitely need a constraint that will only allow you to toss it in if it is an existing ID and listed as GManager or SManager
+-- Also need to create the index b/t recordID and empID.
+-- [test notes: look into adding default to isActive and empRole, figure out how to associate manager w/empID]
+-- 
+-- 2/28/17 VLH
 
 CREATE TABLE Employees
 (
-recordID int,
+recordID char(32),
 firstName varchar(255) NOT NULL, 
 lastName varchar(255) NOT NULL, 
 empID int NOT NULL UNIQUE,
-isActive varchar(9),
-empRole varchar(9),
+isActive varchar(9) NOT NULL,
+empRole varchar(9) NOT NULL,
 manager varchar(255), 
-password varchar(8),
+password varchar(8) NOT NULL UNIQUE,
 stamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 CONSTRAINT roleCheck CHECK (empRole IN ('GManager', 'SManager', 'Cashier')),
 CONSTRAINT activeCheck CHECK (isActive IN ('Active', 'Inactive')),
 CONSTRAINT employees_pkey PRIMARY KEY (recordID)
+);
+
+INSERT INTO Employees 
+(recordID, firstName, lastName, empID, isActive, empRole, manager, password, stamp) 
+VALUES 
+('99999999999999999999999999999999', 'John', 'Smith', 999999999, 'Active', 'GManager', NULL, 'password', CURTIME()
 );
