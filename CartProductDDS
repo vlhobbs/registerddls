@@ -1,11 +1,11 @@
 /*
 v.01 - needs to be tested in PSQL. Using boolean value in 'active' field instead of char; I will consider changing the active field in empTable to a similar format. Also need to reformat to make these more consistent in style.
-I still don't understand the value of uuid over an int. Please explain; I am considering using uuid in the other table as well.
+I still don't understand the value of uuid over an int. Please explain; I am considering using uuid in the other table as well. (I cannot test uuid in MySQL.)
 
 Fields:
 
 ID (uuid)
-LookupCode (character varying(32))
+LookupCode (varchar(32))
 Quantity (int)
 CreatedOn (timestamp without time zone)
 Active (boolean)
@@ -17,7 +17,7 @@ CREATE EXTENSION "uuid-ossp";
 
 CREATE TABLE product (
   id uuid NOT NULL,
-  lookupcode character varying(32) NOT NULL DEFAULT(''),
+  lookupcode varchar(32) NOT NULL DEFAULT(''),
   quantity int NOT NULL DEFAULT(0),
   active boolean NOT NULL DEFAULT(0),
   price numeric(6,2),  
