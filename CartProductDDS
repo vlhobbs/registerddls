@@ -3,7 +3,6 @@ v.01 - needs to be tested in PSQL. Using boolean value in 'active' field instead
 I still don't understand the value of uuid over an int. Please explain; I am considering using uuid in the other table as well. (I cannot test uuid in MySQL.)
 
 Fields:
-
 ID (uuid)
 LookupCode (varchar(32))
 Quantity (int)
