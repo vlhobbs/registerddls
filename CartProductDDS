@@ -1,0 +1,62 @@
+/*
+v.01 - needs to be tested in PSQL. Using boolean value in 'active' field instead of char; I will consider changing the active field in empTable to a similar format. Also need to reformat to make these more consistent in style.
+I still don't understand the value of uuid over an int. Please explain; I am considering using uuid in the other table as well.
+
+Fields:
+
+ID (uuid)
+LookupCode (character varying(32))
+Quantity (int)
+CreatedOn (timestamp without time zone)
+Active (boolean)
+Price (numeric(6,2))
+CONSTRAINT product_pkey PRIMARY KEY (id)
+*/
+
+CREATE EXTENSION "uuid-ossp";
+
+CREATE TABLE product (
+  id uuid NOT NULL,
+  lookupcode character varying(32) NOT NULL DEFAULT(''),
+  quantity int NOT NULL DEFAULT(0),
+  active boolean NOT NULL DEFAULT(0),
+  price numeric(6,2),  
+  createdon timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT product_pkey PRIMARY KEY (id)
+) WITH (
+  OIDS=FALSE
+);
+
+CREATE INDEX ix_product_lookupcode
+  ON product
+  USING btree
+  (lower(lookupcode::text) COLLATE pg_catalog."default");
+
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode1'
+     , 100
+     , 1
+     , 19.99
+     , current_timestamp
+);
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode1'
+     , 125
+     , 0
+     , 2000.99
+     , current_timestamp
+);
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode3'
+     , 150
+     , 1
+     , 400
+     , current_timestamp
+);
+
