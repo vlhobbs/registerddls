@@ -7,7 +7,7 @@ ID (uuid)
 LookupCode (varchar(32))
 Quantity (int)
 CreatedOn (timestamp without time zone)
-Active (boolean)
+Salable (boolean)
 Price (numeric(6,2))
 CONSTRAINT product_pkey PRIMARY KEY (id)
 */
@@ -15,11 +15,11 @@ CONSTRAINT product_pkey PRIMARY KEY (id)
 CREATE EXTENSION "uuid-ossp";
 
 CREATE TABLE product (
-  id uuid NOT NULL,
+  id uuid,
   lookupcode varchar(32) NOT NULL DEFAULT(''),
   quantity int NOT NULL DEFAULT(0),
-  active boolean NOT NULL DEFAULT(0),
-  price numeric(6,2),  
+  salable boolean NOT NULL DEFAULT(0),
+  price numeric(6,2) NOT NULL DEFAULT(0.00),  
   createdon timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT product_pkey PRIMARY KEY (id)
 ) WITH (
