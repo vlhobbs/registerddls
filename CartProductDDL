@@ -1,6 +1,6 @@
 /*
-v.01 - needs to be tested in PSQL. Using boolean value in 'active' field instead of char; I will consider changing the active field in empTable to a similar format. Also need to reformat to make these more consistent in style.
-I still don't understand the value of uuid over an int. Please explain; I am considering using uuid in the other table as well. (I cannot test uuid in MySQL.)
+v 0.1 - Updated product table, others will be added later.
+Tested in PSQL. (Note that boolean uses 'TRUE' and 'FALSE', not integers as I previously read.)
 
 Fields:
 ID (uuid)
@@ -18,7 +18,7 @@ CREATE TABLE product (
   id uuid,
   lookupcode varchar(32) NOT NULL DEFAULT(''),
   quantity int NOT NULL DEFAULT(0),
-  salable boolean NOT NULL DEFAULT(0),
+  salable boolean NOT NULL DEFAULT('TRUE'),
   price numeric(6,2) NOT NULL DEFAULT(0.00),  
   createdon timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT product_pkey PRIMARY KEY (id)
@@ -36,16 +36,16 @@ INSERT INTO product VALUES (
        uuid_generate_v4()
      , 'lookupcode1'
      , 100
-     , 1
+     , 'TRUE'
      , 19.99
      , current_timestamp
 );
 
 INSERT INTO product VALUES (
        uuid_generate_v4()
-     , 'lookupcode1'
+     , 'lookupcode2'
      , 125
-     , 0
+     , 'FALSE'
      , 2000.99
      , current_timestamp
 );
@@ -54,7 +54,7 @@ INSERT INTO product VALUES (
        uuid_generate_v4()
      , 'lookupcode3'
      , 150
-     , 1
+     , 'TRUE'
      , 400
      , current_timestamp
 );
