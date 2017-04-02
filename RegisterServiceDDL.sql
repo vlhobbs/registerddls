@@ -54,4 +54,24 @@ CREATE TABLE employee (
 CREATE INDEX ix_employee_employeeid
   ON employee
   USING hash(employeeid);
+  
+CREATE TYPE transaction_type AS ENUM ('sale', 'return');
+
+CREATE TABLE transaction1 (
+	RecordID uuid NOT NULL,
+	CashierID uuid NOT NULL,
+	Total money,
+	TransType transaction_type,
+	ReferenceID uuid NOT NULL,
+	CreatedOn timestamp without time zone NOT NULL DEFAULT now(),
+	CONSTRAINT transaction1_pkey PRIMARY KEY (RecordID),
+ 	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (CashierID)
+		REFERENCES employee (id) MATCH SIMPLE 
+		ON UPDATE NO ACTION ON DELETE NO ACTION 
+	/* CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (ReferenceID)
+		REFERENCES tran2 (placeholder) MATCH SIMPLE 
+		ON UPDATE NO ACTION ON DELETE NO ACTION */
+)	WITH (
+	OIDS=FALSE
+);
 
