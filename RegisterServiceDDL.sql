@@ -86,3 +86,13 @@ CREATE TABLE transaction1 (
 	OIDS=FALSE
 );
 
+CREATE TABLE transaction2 (
+	TransID uuid NOT NULL,
+	ItemNum serial,
+	CreatedOn timestamp without time zone NOT NULL DEFAULT now(),
+	ProductID uuid NOT NULL,
+	ProductNum int NOT NULL DEFAULT (0),
+	CONSTRAINT transaction2_pkey PRIMARY KEY (TransID, ItemNum)
+)	WITH (
+	OIDS=FALSE
+);
