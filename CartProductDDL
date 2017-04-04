@@ -1,0 +1,61 @@
+/*
+v 0.1 - Updated product table, others will be added later.
+Tested in PSQL. (Note that boolean uses 'TRUE' and 'FALSE', not integers as I previously read.)
+
+Fields:
+ID (uuid)
+LookupCode (varchar(32))
+Quantity (int)
+CreatedOn (timestamp without time zone)
+Salable (boolean)
+Price (numeric(6,2))
+CONSTRAINT product_pkey PRIMARY KEY (id)
+*/
+
+CREATE EXTENSION "uuid-ossp";
+
+CREATE TABLE product (
+  id uuid,
+  lookupcode varchar(32) NOT NULL DEFAULT(''),
+  quantity int NOT NULL DEFAULT(0),
+  salable boolean NOT NULL DEFAULT('TRUE'),
+  price numeric(6,2) NOT NULL DEFAULT(0.00),  
+  createdon timestamp without time zone NOT NULL DEFAULT now(),
+  CONSTRAINT product_pkey PRIMARY KEY (id)
+) WITH (
+  OIDS=FALSE
+);
+
+CREATE INDEX ix_product_lookupcode
+  ON product
+  USING btree
+  (lower(lookupcode::text) COLLATE pg_catalog."default");
+
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode1'
+     , 100
+     , 'TRUE'
+     , 19.99
+     , current_timestamp
+);
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode2'
+     , 125
+     , 'FALSE'
+     , 2000.99
+     , current_timestamp
+);
+
+INSERT INTO product VALUES (
+       uuid_generate_v4()
+     , 'lookupcode3'
+     , 150
+     , 'TRUE'
+     , 400
+     , current_timestamp
+);
+
