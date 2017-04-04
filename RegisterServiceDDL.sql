@@ -1,9 +1,11 @@
 CREATE EXTENSION "uuid-ossp";
 
 CREATE TABLE product (
-  id uuid NOT NULL,
-  lookupcode character varying(32) NOT NULL DEFAULT(''),
-  count int NOT NULL DEFAULT(0),
+  id uuid,
+  lookupcode varchar(32) NOT NULL DEFAULT(''),
+  quantity int NOT NULL DEFAULT(0),
+  salable boolean NOT NULL DEFAULT('TRUE'),
+  price money NOT NULL DEFAULT(0.00),  
   createdon timestamp without time zone NOT NULL DEFAULT now(),
   CONSTRAINT product_pkey PRIMARY KEY (id)
 ) WITH (
@@ -15,17 +17,22 @@ CREATE INDEX ix_product_lookupcode
   USING btree
   (lower(lookupcode::text) COLLATE pg_catalog."default");
 
+
 INSERT INTO product VALUES (
        uuid_generate_v4()
      , 'lookupcode1'
      , 100
+     , 'TRUE'
+     , 19.99
      , current_timestamp
 );
 
 INSERT INTO product VALUES (
        uuid_generate_v4()
-     , 'lookupcode1'
+     , 'lookupcode2'
      , 125
+     , 'FALSE'
+     , 2000.99
      , current_timestamp
 );
 
@@ -33,6 +40,8 @@ INSERT INTO product VALUES (
        uuid_generate_v4()
      , 'lookupcode3'
      , 150
+     , 'TRUE'
+     , 400
      , current_timestamp
 );
 
