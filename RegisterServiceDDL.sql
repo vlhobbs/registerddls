@@ -57,6 +57,8 @@ CREATE INDEX ix_employee_employeeid
   
 CREATE TYPE transaction_type AS ENUM ('sale', 'return');
 
+
+//cgmcname ~1.5 hours worked on
 CREATE TABLE transaction1 (
 	RecordID uuid NOT NULL,
 	CashierID uuid NOT NULL,
