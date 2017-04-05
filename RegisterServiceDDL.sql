@@ -86,12 +86,14 @@ CREATE TABLE transaction1 (
 	OIDS=FALSE
 );
 
+--Anyone have a good idea for names for these two tables?
+
 CREATE TABLE transaction2 (
 	TransID uuid NOT NULL,
-	ItemNum serial,
+	ItemNum int NOT NULL,
 	CreatedOn timestamp without time zone NOT NULL DEFAULT now(),
 	ProductID uuid NOT NULL,
-	ProductNum int NOT NULL DEFAULT (0),
+	ProductNum int NOT NULL DEFAULT (1),
 	CONSTRAINT transaction2_pkey PRIMARY KEY (TransID, ItemNum)
 )	WITH (
 	OIDS=FALSE
