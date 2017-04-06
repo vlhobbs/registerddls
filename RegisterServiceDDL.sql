@@ -95,7 +95,7 @@ CREATE TABLE transaction2 (
 	createdon timestamp without time zone NOT NULL DEFAULT now(),
 	productid uuid NOT NULL,
 	productnum int NOT NULL DEFAULT (1),
-	CONSTRAINT transaction2_pkey PRIMARY KEY (transid, itemnum)
+	CONSTRAINT transaction2_pkey PRIMARY KEY (transid, itemnum),
 	CONSTRAINT productid_key FOREIGN KEY (productid)
 		REFERENCES product (id) MATCH SIMPLE
 		ON UPDATE NO ACTION ON DELETE NO ACTION
