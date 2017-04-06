@@ -79,9 +79,9 @@ CREATE TABLE transaction1 (
  	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (CashierID)
 		REFERENCES employee (id) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION 
-	/* CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (ReferenceID)
-		REFERENCES tran2 (placeholder) MATCH SIMPLE 
-		ON UPDATE NO ACTION ON DELETE NO ACTION */
+	 CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (ReferenceID)
+		REFERENCES transaction2 (transaction2_pkey) MATCH SIMPLE 
+		ON UPDATE NO ACTION ON DELETE NO ACTION 
 )	WITH (
 	OIDS=FALSE
 );
@@ -95,6 +95,10 @@ CREATE TABLE transaction2 (
 	ProductID uuid NOT NULL,
 	ProductNum int NOT NULL DEFAULT (1),
 	CONSTRAINT transaction2_pkey PRIMARY KEY (TransID, ItemNum)
+	CONSTRAINT productid_key FOREIGN KEY (ProductID)
+		REFERENCES product (id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE NO ACTION
+			
 )	WITH (
 	OIDS=FALSE
 );
