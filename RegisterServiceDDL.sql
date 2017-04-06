@@ -78,10 +78,10 @@ CREATE TABLE transaction1 (
 	CONSTRAINT transaction1_pkey PRIMARY KEY (recordid),
  	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (cashierid)
 		REFERENCES employee (id) MATCH SIMPLE 
-		ON UPDATE NO ACTION ON DELETE NO ACTION 
+		ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	 CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
 		REFERENCES transaction2 (transaction2_pkey) MATCH SIMPLE 
-		ON UPDATE NO ACTION ON DELETE NO ACTION 
+		ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return')),
 )	WITH (
 	OIDS=FALSE
