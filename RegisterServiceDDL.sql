@@ -82,7 +82,7 @@ CREATE TABLE transaction1 (
 	 CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
 		REFERENCES transaction2 (transaction2_pkey) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
-	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return')),
+	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return'))
 )	WITH (
 	OIDS=FALSE
 );
