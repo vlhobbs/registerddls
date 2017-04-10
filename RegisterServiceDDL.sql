@@ -71,23 +71,22 @@ CREATE INDEX ix_employee_employeeid
 CREATE TABLE transaction1 (
 	recordid uuid NOT NULL,
 	cashierid uuid NOT NULL,
-	total money,
-	transtype varchar(8),
+	total money NOT NULL DEFAULT 0.00,
+	transtype varchar(8) NOT NULL DEFAULT('sale'),
 	referenceid uuid NOT NULL,
-	createdon timestamp without time zone NOT NULL DEFAULT now(),
+	createdon timestamp without time zone NOT NULL DEFAULT(now()),
 	CONSTRAINT transaction1_pkey PRIMARY KEY (recordid),
  	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (cashierid)
 		REFERENCES employee (id) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
-	 CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
-		REFERENCES transaction2 (transaction2_pkey) MATCH SIMPLE 
+	CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
+		REFERENCES transaction2 (transid) MATCH SIMPLE
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return'))
 )	WITH (
 	OIDS=FALSE
 );
 
---Anyone have a good idea for names for these two tables?
 
 CREATE TABLE transaction2 (
 	transid uuid NOT NULL,
@@ -103,3 +102,4 @@ CREATE TABLE transaction2 (
 )	WITH (
 	OIDS=FALSE
 );
+
