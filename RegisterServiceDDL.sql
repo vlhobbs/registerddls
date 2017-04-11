@@ -71,7 +71,7 @@ CREATE TABLE transaction1 (
 		REFERENCES employee (id) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
-		REFERENCES transaction2 (transid) MATCH SIMPLE
+		REFERENCES transaction2 (id) MATCH SIMPLE
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return'))
 )	WITH (
