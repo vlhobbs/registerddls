@@ -66,7 +66,7 @@ CREATE TABLE transaction1 (
 	transtype varchar(8) NOT NULL DEFAULT('sale'),
 	referenceid uuid NOT NULL,
 	createdon timestamp without time zone NOT NULL DEFAULT(now()),
-	CONSTRAINT transaction1_pkey PRIMARY KEY (recordid),
+	CONSTRAINT transaction1_pkey PRIMARY KEY (id),
  	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (cashierid)
 		REFERENCES employee (id) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
