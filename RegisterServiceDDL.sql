@@ -64,21 +64,21 @@ CREATE TABLE transaction1 (
 	cashierid uuid NOT NULL,
 	total money NOT NULL DEFAULT 0.00,
 	transtype varchar(8) NOT NULL DEFAULT('sale'),
-	referenceid uuid NOT NULL,
+	-- referenceid needs to be able to be null for sales
+	--refers to transid, not to id, of transaction2
+	referenceid uuid, 
 	createdon timestamp without time zone NOT NULL DEFAULT(now()),
 	CONSTRAINT transaction1_pkey PRIMARY KEY (id),
  	CONSTRAINT transaction1_employee_fkey FOREIGN KEY (cashierid)
 		REFERENCES employee (id) MATCH SIMPLE 
 		ON UPDATE NO ACTION ON DELETE NO ACTION, 
-	CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
-		REFERENCES transaction2 (id) MATCH SIMPLE
-		ON UPDATE NO ACTION ON DELETE NO ACTION, 
+	--CONSTRAINT transaction1_tran2_fkey FOREIGN KEY (referenceid)
+	--	REFERENCES transaction2 (id) MATCH SIMPLE
+	--	ON UPDATE NO ACTION ON DELETE NO ACTION, 
 	CONSTRAINT type_check CHECK (transtype IN ('sale', 'return'))
 )	WITH (
 	OIDS=FALSE
 );
-
-
 
 INSERT INTO product VALUES (
        uuid_generate_v4()
